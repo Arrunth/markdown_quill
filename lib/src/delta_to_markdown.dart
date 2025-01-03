@@ -259,10 +259,12 @@ class DeltaToMarkdown extends Converter<Delta, String>
     if (style.isEmpty ||
         style.values.every((item) => item.scope != AttributeScope.block)) {
       out.writeln();
+      return out;
     }
     if (style.containsKey(Attribute.list.key) &&
         line.nextLine?.style.containsKey(Attribute.list.key) != true) {
       out.writeln();
+      return out;
     }
     out.writeln();
     return out;
