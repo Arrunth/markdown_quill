@@ -225,8 +225,11 @@ class MarkdownToDelta extends Converter<String, Delta>
       _delta.insert(_toEmbeddable(element).toJson());
     }
 
-    if (tag == 'br') {
-      _delta.insert('\n');
+    if (tag == 'br' ||
+        (element.tag == 'p' &&
+            element.textContent == '' &&
+            (_isInBlockQuote || _isInCodeblock))) {
+      _delta.insert('\n', _effectiveBlockAttrs());
     }
 
     // exit block with new line
